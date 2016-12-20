@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "479651411635",
+    "firebase_url": "https://green-37e91.firebaseio.com",
+    "project_id": "green-37e91",
+    "storage_bucket": "green-37e91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479651411635:android:045677d399a8bf09",
+        "android_client_info": {
+          "package_name": "net.leacoder.green"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479651411635-sgduld33is5spr5n6uu60a78lgn4n4jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYd74jfVNUfjJrnS6xOApblUX820haQq4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
