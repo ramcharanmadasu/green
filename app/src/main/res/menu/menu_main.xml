@@ -11,5 +11,5 @@
         android:orderInCategory="200"
         android:title="note"
         app:showAsAction="always"
-        android:icon="@mipmap/ic_exit_to_app_black_24dp"/>
+        android:icon="@mipmap/ic_notifications_white_24dp"/>
 </menu>

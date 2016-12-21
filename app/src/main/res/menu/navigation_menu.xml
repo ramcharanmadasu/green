@@ -10,8 +10,8 @@
         android:icon="@mipmap/ic_credit_card_black_24dp"></item>
     <item
         android:id="@+id/shipping"
-        android:title="Payments"
-        android:icon="@mipmap/ic_local_shipping_black_24dp.png"></item>
+        android:title="Shipping"
+        android:icon="@mipmap/ic_local_shipping_black_24dp"></item>
 
     <item
         android:id="@+id/logout"
