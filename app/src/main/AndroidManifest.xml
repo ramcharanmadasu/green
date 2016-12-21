@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignInActivity" android:theme="@style/AppTheme2" />
 
     </application>
 
