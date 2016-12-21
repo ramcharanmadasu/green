@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements android.support.d
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_note) {
+            return true;
+        }
 
         if(mToggle.onOptionsItemSelected(item)){
             return true;
