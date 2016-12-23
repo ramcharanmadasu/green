@@ -17,9 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SignInActivity" android:theme="@style/AppTheme2" />
-
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SignInActivity"
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".CartActivity" android:label="Cart"></activity>
     </application>
 
 </manifest>

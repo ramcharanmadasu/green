@@ -1,16 +1,27 @@
 package net.leacoder.green;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements android.support.design.widget.NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
@@ -19,12 +30,26 @@ public class MainActivity extends AppCompatActivity implements android.support.d
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private RecyclerView mRecyclerView;
+
+    private DatabaseReference mDatabase;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("items");
+
+
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_main);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mAuth = FirebaseAuth.getInstance();
@@ -38,11 +63,24 @@ public class MainActivity extends AppCompatActivity implements android.support.d
         };
 
 
+
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         android.support.design.widget.NavigationView navigationView = (android.support.design.widget.NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,CartActivity.class));
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //       .setAction("Action", null).show();
+            }
+        });
 
     }
 
@@ -95,6 +133,54 @@ public class MainActivity extends AppCompatActivity implements android.support.d
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        FirebaseRecyclerAdapter<MyData,MyDataViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<MyData, MyDataViewHolder>(
+                MyData.class,
+                R.layout.item_row,
+                MyDataViewHolder.class,
+                mDatabase
+
+
+        ) {
+            @Override
+            protected void populateViewHolder(MyDataViewHolder viewHolder, MyData model, int position) {
+                viewHolder.setName(model.getName());
+                viewHolder.setPrice(model.getPrice());
+                viewHolder.setQuantity(model.getQuantity());
+                viewHolder.setImage(getApplicationContext(),model.getImage());
+
+
+            }
+        };
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public static class MyDataViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+
+        public MyDataViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+
+        }
+        public void setName(String name){
+            TextView mname = (TextView) mView.findViewById(R.id.mname);
+            mname.setText(name);
+        }
+        public void setPrice(String price){
+            TextView mprice = (TextView) mView.findViewById(R.id.mprice);
+            mprice.setText(price);
+
+        }
+        public void setQuantity(String quantity){
+            TextView mquantity = (TextView) mView.findViewById(R.id.mquantity);
+            mquantity.setText(quantity);
+        }
+        public void setImage(Context context, String image){
+            ImageView mimage = (ImageView) mView.findViewById(R.id.mimage);
+            Picasso.with(context).load(image).into(mimage);
+
+        }
+
     }
 
 
